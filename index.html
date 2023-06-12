@@ -8,6 +8,8 @@
     <title>Etch-A-Sketch</title>
 </head>
 <body>
+    <button class="btn">Number Of Pixels</button>
+
     <div class="container">    
 
     </div>
@@ -27,18 +29,61 @@
                 row[i].appendChild(columns);
             }
         }
-        //Hover effect
+        //Hover effect with random rgb colors
         const gridElements = document.querySelectorAll('.column');
         
         gridElements.forEach((gridElement)=> {
             gridElement.addEventListener('mouseover',()=>{
-                gridElement.style.background = "red";
+                const randomColor = Math.floor(Math.random()*16777215).toString(16);
+                gridElement.style.background = '#' + randomColor;
             });
-            gridElement.addEventListener('mouseout',()=>{
-                gridElement.style.background = "";
-            });
-
+  
         });
+
+        function removeAllChildNodes(parent) {
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+            }
+        }
+
+        const btn = document.querySelector('.btn');
+        btn.addEventListener('click', () => { 
+            let newGrid = prompt("Enter the number of pixels per side (under 100) :");
+            if (newGrid<100 && newGrid>0){
+                
+                const container = document.querySelector('.container');
+                removeAllChildNodes(container);
+
+                const container2 = document.querySelector('.container');
+                for(let x=0; x<newGrid; x++){
+                    const rows = document.createElement('div');
+                    rows.classList.add('row');
+                    container2.appendChild(rows);
+
+                    const row = document.querySelectorAll('.row');
+                    for(let y=0; y<newGrid; y++){
+                        const columns = document.createElement('div');
+                        columns.classList.add('column');
+                        row[x].appendChild(columns);
+                    }
+                }
+
+                const gridElements = document.querySelectorAll('.column');
+                
+               
+        
+                gridElements.forEach((gridElement)=> {
+                gridElement.addEventListener('mouseover',()=>{
+                    const randomColor = Math.floor(Math.random()*16777215).toString(16);
+                    gridElement.style.background = '#' + randomColor;
+                    
+  
+                });
+  
+                });
+                
+            }
+       });
       
     </script>
     
